@@ -2,10 +2,12 @@ resource "aws_instance" "tf_project1_ec2" {
   count=2
   ami           = "ami-06259b63260eddc13"
   instance_type = "t3.micro"
-  subnet_id     = [aws_subnet.tf_project1_pub_sub1.id,aws_subnet.tf_project1_pub_sub2.id][count.index]
+  subnet_id=[aws_subnet.tf_project1_pub_sub1.id,aws_subnet.tf_project1_pub_sub2.id][count.index]
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
   associate_public_ip_address = true 
-
+   
+  iam_instance_profile = aws_iam_instance_profile.tf_project1_ssm_profile.name
+  
   user_data = <<-EOF
     #!/bin/bash
     apt-get update -y
