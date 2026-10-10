@@ -5,8 +5,6 @@ resource "aws_instance" "instance-1" {
   key_name="my-ec2-key"
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
   associate_public_ip_address = true 
-   
-  iam_instance_profile = aws_iam_instance_profile.tf_project1_ssm_profile.name
 
   user_data = <<-EOF
     #!/bin/bash
